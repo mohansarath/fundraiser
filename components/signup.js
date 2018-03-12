@@ -22,7 +22,7 @@ export default class extends Component {
         this.handleFtypeChange = this.handleFtypeChange.bind(this);
         this.handlePhoneChange = this.handlePhoneChange.bind(this);
         this.handleOnameChange = this.handleOnameChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.signup = this.signup.bind(this);
     }
 
     handleEmailChange(event) {
@@ -47,55 +47,65 @@ export default class extends Component {
     }
 
 
-    handleSubmit(event) {
-        // alert('A name was submitted: ' + JSON.stringify(this.state));
+    signup() {
+        alert('A name was submitted: ' + JSON.stringify(this.state));
+        // postCall(JSON.stringify(this.state))
+        // .then((response) => { console.log('response ', response); })
+        // .catch((error) => console.log('error ', error)
+        // );
         postCall(JSON.stringify(this.state))
-        .then((response) => { console.log('response ', response); })
-        .catch((error) => console.log('error ', error)
-    );
-    // event.preventDefault();
-}
-render() {
-    return (
-        <div className="container">
-            <Row>
-                <Col xs="3"></Col>
-                <Col xs="6">
-                    <div className="text-center"><h3>Sign Up</h3></div>
-                    <form onSubmit={this.handleSubmit}>
-                    <Form >
-                        <FormGroup>
-                            <Label>Email</Label>
-                            <Input placeholder="email" type="email" id="email" name="email" onChange={this.handleEmailChange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>password</Label>
-                            <Input placeholder="password" type="password" id="password" name="password" onChange={this.handlePasswordChange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>confirm password</Label>
-                            <Input placeholder="confirm password" type="password" id="confirm_password" name="confirm_password" onChange={this.handleConfirmPasswordChange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>fundraiser_type</Label>
-                            <Input placeholder="fundraiser_type" id="fundraiser_type" name="fundraiser_type" onChange={this.handleFtypeChange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>phone</Label>
-                            <Input placeholder="phone" type="number" id="phone" name="phone" onChange={this.handlePhoneChange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>organization_name</Label>
-                            <Input placeholder="organization_name" id="organization_name" name="organization_name" onChange={this.handleOnameChange} />
-                        </FormGroup>
-                        <div className="text-center"> <input type="submit" value="Submit" /></div>
-                    </Form>
-                    </form>
-                </Col>
-                <Col xs="3"></Col>
-            </Row>
-        </div>
 
-    )
-}
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        alert('ollo');
+
+        // event.preventDefault();
+    }
+    render() {
+        return (
+            <div className="container">
+                <Row>
+                    <Col xs="3"></Col>
+                    <Col xs="6">
+                        <div className="text-center"><h3>Sign Up</h3></div>
+            <form>
+                            <Form >
+                                <FormGroup>
+                                    <Label>Email</Label>
+                                    <Input placeholder="email" type="email" id="email" name="email" onChange={this.handleEmailChange} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>password</Label>
+                                    <Input placeholder="password" type="password" id="password" name="password" onChange={this.handlePasswordChange} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>confirm password</Label>
+                                    <Input placeholder="confirm password" type="password" id="confirm_password" name="confirm_password" onChange={this.handleConfirmPasswordChange} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>fundraiser_type</Label>
+                                    <Input placeholder="fundraiser_type" id="fundraiser_type" name="fundraiser_type" onChange={this.handleFtypeChange} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>phone</Label>
+                                    <Input placeholder="phone" type="number" id="phone" name="phone" onChange={this.handlePhoneChange} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>organization_name</Label>
+                                    <Input placeholder="organization_name" id="organization_name" name="organization_name" onChange={this.handleOnameChange} />
+                                </FormGroup>
+                                <div className="text-center"> <button onClick={this.signup}>Sign uP</button></div>
+                            </Form>
+              </form>
+                    </Col>
+                    <Col xs="3"></Col>
+                </Row>
+            </div>
+
+        )
+    }
 }
