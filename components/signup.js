@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, InputGroupText, Input, Label, FormGroup, Button, Row, Col, Grid, Form } from 'reactstrap';
 import { postCall } from '../services/api';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class extends Component {
     constructor(props) {
@@ -48,23 +50,13 @@ export default class extends Component {
     signup() {
         alert('A name was submitted: ' + this.state);
         postCall(this.state)
-            .then(( response ) => {
-                console.log('response ::::::::: ',response);
+            .then((response) => {
+                console.log('response ::::::::: ', response.data);
             })
-            .catch(( error ) => {
-                console.log('error ::::::: ',error);
+            .catch((error) => {
+                console.log('error ::::::: ', error);
             })
         alert('ollo');
-
-        // axios.post('http://52.41.54.41:3001/fundraisers/',{
-        //             email : 'abc@gmail.com',
-        //             password :'1234',
-        //             confirm_password:'1234',
-        //             fundraiser_type:'O',
-        //             phone:'9567044020',
-        //             organization_name:'OP'
-        //         })
-
 
     }
     render() {
@@ -72,37 +64,94 @@ export default class extends Component {
             <div className="container">
                 <Row>
                     <Col xs="3"></Col>
-                    <Col xs="6">
-                        <div className="text-center"><h3>Sign Up</h3></div>
-            <form>
+                    <Col xs="6" className="border">
+                        <div className="text-center"><h3>Sign Up</h3>
                             <Form >
                                 <FormGroup>
-                                    <Label>Email</Label>
-                                    <Input placeholder="email" type="email" id="email" name="email" onChange={this.handleEmailChange} />
+                                    <TextField
+                                        hintText="abc@xyz.com"
+                                        floatingLabelText="Email"
+                                        onChange={this.handleEmailChange}
+                                        fullWidth={true}
+                                    />
+                                    {/* <Label>Email</Label>
+                                    <Input placeholder="email" type="email" id="email" name="email" onChange={this.handleEmailChange} /> */}
                                 </FormGroup>
+                                <Row>
+                                    <Col xs="6">
+                                        <FormGroup>
+                                            <TextField
+                                                hintText="password"
+                                                floatingLabelText="Password"
+                                                type="password"
+                                                onChange={this.handlePasswordChange}
+                                                fullWidth={true}
+                                            />
+                                            {/* <Label>password</Label>
+                                    <Input placeholder="password" type="password" id="password" name="password" onChange={this.handlePasswordChange} /> */}
+
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="6">
+                                        <FormGroup>
+                                            <TextField
+                                                hintText="password"
+                                                floatingLabelText="Confirm Password"
+                                                type="password"
+                                                onChange={this.handleConfirmPasswordChange}
+                                                fullWidth={true}
+                                            />
+                                            {/* <Label>confirm password</Label>
+                                    <Input placeholder="confirm password" type="password" id="confirm_password" name="confirm_password" onChange={this.handleConfirmPasswordChange} /> */}
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
                                 <FormGroup>
-                                    <Label>password</Label>
-                                    <Input placeholder="password" type="password" id="password" name="password" onChange={this.handlePasswordChange} />
+                                    <TextField
+                                        hintText="mobile"
+                                        floatingLabelText="phone"
+                                        onChange={this.handlePhoneChange}
+                                        fullWidth={true}
+                                    />
+                                    {/* <Label>fundraiser_type</Label>
+                                    <Input placeholder="fundraiser_type" id="fundraiser_type" name="fundraiser_type" onChange={this.handleFtypeChange} /> */}
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label>confirm password</Label>
-                                    <Input placeholder="confirm password" type="password" id="confirm_password" name="confirm_password" onChange={this.handleConfirmPasswordChange} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>fundraiser_type</Label>
-                                    <Input placeholder="fundraiser_type" id="fundraiser_type" name="fundraiser_type" onChange={this.handleFtypeChange} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>phone</Label>
-                                    <Input placeholder="phone" type="number" id="phone" name="phone" onChange={this.handlePhoneChange} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>organization_name</Label>
-                                    <Input placeholder="organization_name" id="organization_name" name="organization_name" onChange={this.handleOnameChange} />
-                                </FormGroup>
-                                <div className="text-center"> <button onClick={this.signup}>Sign uP</button></div>
+                                <Row>
+                                    <Col xs="6">
+                                        <FormGroup>
+                                        <TextField
+                                        hintText="O / I"
+                                        floatingLabelText="Fundraiser Type"
+                                        onChange={this.handleFtypeChange}
+                                        fullWidth={true}
+                                    />
+                                            {/* <Label>phone</Label>
+                                    <Input placeholder="phone" type="number" id="phone" name="phone" onChange={this.handlePhoneChange} /> */}
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="6">
+                                        <FormGroup>
+                                        <TextField
+                                        hintText="organization name"
+                                        floatingLabelText="Organization name"
+                                        onChange={this.handlePhoneChange}
+                                        fullWidth={true}
+                                    />
+                                            {/* <Label>organization_name</Label>
+                                    <Input placeholder="organization_name" id="organization_name" name="organization_name" onChange={this.handleOnameChange} /> */}
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <RaisedButton
+                                    type="button"
+                                    label="Sign Up"
+                                    primary={true}
+                                    onClick={this.signup}
+                                />
+                                {/* <button type="button" onClick={this.signup}>Sign uP</button> */}
                             </Form>
-              </form>
+                    
+                        </div>
                     </Col>
                     <Col xs="3"></Col>
                 </Row>

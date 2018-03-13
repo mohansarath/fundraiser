@@ -12,7 +12,7 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
-
+import { Link } from 'react-router-dom';
 
 export default class extends Component {
     constructor(props) {
@@ -32,15 +32,20 @@ export default class extends Component {
         return (
             <div>
                 <Navbar color="faded" light expand="md">
-                    <NavbarBrand href="/">fundraiser</NavbarBrand>
+                    <NavbarBrand href="/">fundraiser.com</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="#">SignUp</NavLink>
+                            <Link to="/"> 
+                            
+                              <NavLink><span className="fa fa-user-plus"></span> SignUp </NavLink>
+                              </Link>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#">Login</NavLink>
+                            <Link to="/login">
+                            <NavLink><span className="fa fa-sign-in-alt"></span> Login </NavLink>
+                            </Link>
                             </NavItem>
                         </Nav>
                     </Collapse>
