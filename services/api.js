@@ -10,10 +10,17 @@ export function putCall(url,body){
 	return axios.put(BASE_URL+url,body);
 }
 
-export function postCall(url,body){
+export function postCall(body){
+	console.log('hi');
 	return axios.post(BASE_URL,body);
 }
 
 export function deleteCall(url,params=null){
 	return axios.delete(BASE_URL+url,{params : params});
+}
+
+export function login(body){
+	var url='login';
+	return axios.post(BASE_URL+url,body);
+
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, InputGroupText, Input, Label, FormGroup, Button, Row, Col, Grid, Form } from 'reactstrap';
-import Center from '../services/center';
 import { postCall } from '../services/api';
-
 
 export default class extends Component {
     constructor(props) {
@@ -48,22 +46,26 @@ export default class extends Component {
 
 
     signup() {
-        alert('A name was submitted: ' + JSON.stringify(this.state));
-        // postCall(JSON.stringify(this.state))
-        // .then((response) => { console.log('response ', response); })
-        // .catch((error) => console.log('error ', error)
-        // );
-        postCall(JSON.stringify(this.state))
-
-            .then(function (response) {
-                console.log(response);
+        alert('A name was submitted: ' + this.state);
+        postCall(this.state)
+            .then(( response ) => {
+                console.log('response ::::::::: ',response);
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            .catch(( error ) => {
+                console.log('error ::::::: ',error);
+            })
         alert('ollo');
 
-        // event.preventDefault();
+        // axios.post('http://52.41.54.41:3001/fundraisers/',{
+        //             email : 'abc@gmail.com',
+        //             password :'1234',
+        //             confirm_password:'1234',
+        //             fundraiser_type:'O',
+        //             phone:'9567044020',
+        //             organization_name:'OP'
+        //         })
+
+
     }
     render() {
         return (

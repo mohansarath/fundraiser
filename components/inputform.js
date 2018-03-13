@@ -103,7 +103,8 @@ export default class extends Component {
 
         )
     }
-}
+
+
 // function stringifyFormData(fd) {
 //     const data = {};
 //     for (let key of fd.keys()) {
