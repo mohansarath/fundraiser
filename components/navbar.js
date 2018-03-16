@@ -36,6 +36,9 @@ export default class extends Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            {/* {this.props.detail.user_data.email} */}
+                        </NavItem>  
                             <NavItem>
                             <Link to="/"> 
                             
@@ -44,7 +47,7 @@ export default class extends Component {
                             </NavItem>
                             <NavItem>
                             <Link to="/login">
-                            <NavLink><span className="fa fa-sign-in-alt"></span> Login </NavLink>
+                            <NavLink><span className="fa fa-sign-in-alt"></span> Login</NavLink>
                             </Link>
                             </NavItem>
                         </Nav>

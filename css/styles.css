@@ -1,25 +1,70 @@
-.navbar{
+.navbar {
     background-color: #2bafc8 !important;
-
 }
+
 body {
     font-family: 'Roboto', sans-serif;
 }
+
 .navbar-light .navbar-nav .nav-link {
     color: #eefafc !important;
 }
+
 .navbar-light .navbar-brand {
     color: #eefafc !important;
 }
+
 .exactCenter {
     top: 50%;
     left: 50%;
-    margin-top: 5em; /*set to a negative number 1/2 of your height
+    margin-top: 5em;
+    /*set to a negative number 1/2 of your height
     /* margin-left: -15em;  */
-  
 }
-.border{
+
+.border {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    padding :20px !important;
+    padding: 20px !important;
+}
+
+.headings {
+    color: #888888;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.font-size {
+    font-size: 15px;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.green {
+    background-color: #44d17a !important;
+}
+
+.fa-facebook-f {
+    color: white;
+    font-size: 20px;
+}
+
+.fa-twitter {
+    color: white;
+    font-size: 20px;
+}
+.fa-google {
+    color: white;
+    font-size: 20px;
+}
+.margin-left{
+    margin-left: 80px;
+}
+.margin-indicator{
+    margin-left: 25%;
+}
+.right{
+    float: right;
 }

@@ -49,9 +49,10 @@ export default class extends Component {
 
     signup() {
         alert('A name was submitted: ' + this.state);
-        postCall(this.state)
+        postCall('fundraisers/',this.state)
             .then((response) => {
                 console.log('response ::::::::: ', response.data);
+                this.props.history.push('/login');
             })
             .catch((error) => {
                 console.log('error ::::::: ', error);
