@@ -18,11 +18,11 @@ class user extends Component {
                      details={this.props.location.state.detail}
                  />
                 <div className="exactCenter">
-                    Logged in <br/>
+                    {/* Logged in <br/>
                     {console.log(this.props.location.state.detail)}
                     {this.props.location.state.detail.user_data.email}<br/>
                     {this.props.location.state.detail.user_data.phone}<br/>
-                    Last seen at {this.props.location.state.detail.user_data.last_logged_in}<br/> 
+                    Last seen at {this.props.location.state.detail.user_data.last_logged_in}<br/>  */}
                 </div>
             </div>
         )

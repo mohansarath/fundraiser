@@ -21,6 +21,9 @@ class update extends Component {
         this.state.twitter_link = this.props.details.user_data.twitter_link;
         this.state.google_link = this.props.details.user_data.google_link;
         this.state.organization_name = this.props.details.user_data.organization_name;
+        this.state.profile_image_url=this.props.details.user_data.profile_image_url;
+        this.state.dob=this.props.details.user_data.dob;
+        this.state.fundraiser_logo_url=this.props.details.user_data.fundraiser_logo_url;
 
     }
 
@@ -124,13 +127,17 @@ class update extends Component {
         alert('ollo');
     }
     toggle1() {
+        const profimage = localStorage.getItem('ProfileImage');
         this.setState({
-            modal1: !this.state.modal1
+            modal1: !this.state.modal1,
+            profile_image_url:profimage
         });
     }
     toggle2() {
+        const logo = localStorage.getItem('Logo');
         this.setState({
-            modal2: !this.state.modal2
+            modal2: !this.state.modal2,
+            fundraiser_logo_url:logo
         });
     }
 
@@ -358,12 +365,18 @@ class update extends Component {
                 <Modal isOpen={this.state.modal1} toggle={this.toggle1} className={this.props.className}>
                     <ModalHeader toggle={this.toggle1}>Upload Image</ModalHeader>
                     <ModalBody>
-                        <Upload 
-                            imagetype = "fundraiserProfile"
-                            userid = {this.props.details.user_data.id}
+                        <Upload
+                            imagetype="fundraiserProfile"
+                            userid={this.props.details.user_data.id}
                         />
                     </ModalBody>
                     <ModalFooter>
+                        <RaisedButton
+                            type="button"
+                            label="Done"
+                            primary={true}
+                            onClick={this.toggle1}
+                        />
                         <RaisedButton
                             type="button"
                             label="Cancel"
@@ -377,11 +390,17 @@ class update extends Component {
                     <ModalHeader toggle={this.toggle1}>Upload Logo</ModalHeader>
                     <ModalBody>
                         <Upload
-                              imagetype = "fundraiserLogo"
-                              userid = {this.props.details.user_data.id}
+                            imagetype="fundraiserLogo"
+                            userid={this.props.details.user_data.id}
                         />
                     </ModalBody>
                     <ModalFooter>
+                    <RaisedButton
+                            type="button"
+                            label="Done"
+                            primary={true}
+                            onClick={this.toggle2}
+                        />
                         <RaisedButton
                             type="button"
                             label="Cancel"

@@ -66,7 +66,7 @@ class nav extends Component {
                                             state: {udata:this.props.details}}}>
                                     <DropdownItem>
                                   
-                                        Create
+                                        Update
                                        
                                   </DropdownItem>
                                   </Link>

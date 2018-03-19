@@ -91,15 +91,15 @@ export default class extends Component {
                             <Row className="margin-top">
                                 {/* <Container> */}
                                 <Col md="3">
-                                    <img src="https://statics.sportskeeda.com/wp-content/uploads/2016/03/lionel-messi-1458300272-800.jpg" class="rounded" alt="Cinque Terre" width="200" height="250" />
+                                    <img src={this.state.userdata.profile_image_url} class="rounded" alt="Cinque Terre" width="200" height="250" />
 
                                 </Col>
                                 <Col md="8">
                                     <h2>{this.state.userdata.first_name} {this.state.userdata.last_name} </h2>
                                     <h6><i>{this.state.userdata.organization_name}
                                     </i></h6>
+                                  
                                     <hr />
-
                                     <Row className="margin-top">
                                         <Col sm="3" className="headings">DOB</Col>
                                         <Col sm="9">{this.state.userdata.dob}</Col>
@@ -136,6 +136,8 @@ export default class extends Component {
                                 <a href={this.state.userdata.facebook_link}>    <span className="fab fa-facebook-f"></span></a>
                                 <a href={this.state.userdata.twitter_link}>     <span className="fab fa-twitter margin-left"></span></a>
                                 <a href={this.state.userdata.google_link}>     <span className="fab fa-google margin-left"></span></a>
+                                <img src={this.state.userdata.fundraiser_logo_url}  class="rounded margin-left" alt="Cinque Terre" width="30" height="30" />
+
                             </div>
 
                         </Card>
