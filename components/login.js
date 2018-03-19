@@ -19,7 +19,7 @@ class login extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.signin = this.signin.bind(this);
-        localStorage.clear();
+        // localStorage.clear();
     }
 
     handleEmailChange(event) {
@@ -41,15 +41,16 @@ class login extends Component {
                     console.log('props :::::::::::::::login',this.props);
                     this.autho=response.headers.auth;
                     localStorage.setItem('Auth',this.autho);
-
+                    this.userdata=response.data.user_data;
+                    localStorage.setItem('Userdata',JSON.stringify( this.userdata))
 
 
                     this.props.history.push({
-                        pathname: '/user',
-                        state: { detail: response.data }
+                        pathname: '/user'
+                        // state: { detail: response.data }
                       })
                     // const { history } = this.props;
-                    // history.push("/");
+                    // history.push("/");   
                 }    //   window.location="http://localhost:8080/user";
             })
             .catch((error) => {

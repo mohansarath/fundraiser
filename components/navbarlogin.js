@@ -21,17 +21,23 @@ class nav extends Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.clearFunction = this.clearFunction.bind(this);
         this.state = {
             isOpen: false
         };
+        this.user_data = JSON.parse(localStorage.getItem('Userdata'));
     }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
+    clearFunction(){
+        localStorage.clear();
+    }
     render() {
         console.log('asdfg',this.props);
+  
         return (
             <div>
                 <Navbar color="faded" light expand="md">
@@ -41,8 +47,8 @@ class nav extends Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem>
                                 <NavLink>
-                                    {console.log(this.props)}
-                                    {this.props.details.user_data.email}
+                                    {console.log('heyyyyy',this.props)}
+                                    {this.user_data.email}
                                 </NavLink>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
@@ -51,8 +57,9 @@ class nav extends Component {
                               </DropdownToggle>
                                 <DropdownMenu >
                                 <Link
-                                 to={{ pathname: '/view',
-                                     state: {udata:this.props.details}}}>
+                                 to={{ pathname: '/view'
+                                    //  state: {udata:this.props.details}
+                                     }}>
                                     <DropdownItem>
                                  
                                         View
@@ -62,8 +69,9 @@ class nav extends Component {
                                   
                                     <DropdownItem divider />
                                     <Link
-                                          to={{ pathname: '/create',
-                                            state: {udata:this.props.details}}}>
+                                          to={{ pathname: '/create'
+                                            // state: {udata:this.props.details}
+                                            }}>
                                     <DropdownItem>
                                   
                                         Update
@@ -74,7 +82,7 @@ class nav extends Component {
                             </UncontrolledDropdown>
                             <NavItem>
                                 <Link to="/login">
-                                    <NavLink><span className="fa fa-sign-in-alt"></span> Log Out</NavLink>
+                                    <NavLink onClick={this.clearFunction}><span className="fa fa-sign-in-alt" ></span> Log Out</NavLink>
                                 </Link>
                             </NavItem>
                         </Nav>

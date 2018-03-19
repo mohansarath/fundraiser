@@ -14,16 +14,17 @@ class viewpro extends Component {
 
     }
     render() {
+    
         return (
             <div>
                 {console.log("sdfghjk", this.props)}
                 <Navbar
-                    details={this.props.location.state.udata}
+                    // details={this.props.location.state.udata}
                 />
                 <div className="exactCenter">
                 {console.log("sdfghjkjskfkjkksjdkjfksjfklsjklvhjdvjkjdkfn", this.props)}
                     <Input
-                         details={this.props.location.state.udata}
+                        //  details={this.props.location.state.udata}
                     />
                 </div>
             </div>

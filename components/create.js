@@ -10,25 +10,27 @@ import Upload from './upload'
 class update extends Component {
 
     componentWillMount() {
-        this.state.first_name = this.props.details.user_data.first_name;
-        this.state.last_name = this.props.details.user_data.last_name;
-        this.state.street = this.props.details.user_data.street;
-        this.state.city = this.props.details.user_data.city;
-        this.state.country_code = this.props.details.user_data.country_code;
-        this.state.zip = this.props.details.user_data.zip;
-        this.state.phone = this.props.details.user_data.phone;
-        this.state.facebook_link = this.props.details.user_data.facebook_link;
-        this.state.twitter_link = this.props.details.user_data.twitter_link;
-        this.state.google_link = this.props.details.user_data.google_link;
-        this.state.organization_name = this.props.details.user_data.organization_name;
-        this.state.profile_image_url=this.props.details.user_data.profile_image_url;
-        this.state.dob=this.props.details.user_data.dob;
-        this.state.fundraiser_logo_url=this.props.details.user_data.fundraiser_logo_url;
+        // this.user_data = JSON.parse(localStorage.getItem('Userdata'));
+        this.state.first_name = this.user_data.first_name;
+        this.state.last_name = this.user_data.last_name;
+        this.state.street = this.user_data.street;
+        this.state.city = this.user_data.city;
+        this.state.country_code = this.user_data.country_code;
+        this.state.zip = this.user_data.zip;
+        this.state.phone = this.user_data.phone;
+        this.state.facebook_link = this.user_data.facebook_link;
+        this.state.twitter_link = this.user_data.twitter_link;
+        this.state.google_link = this.user_data.google_link;
+        this.state.organization_name = this.user_data.organization_name;
+        this.state.profile_image_url=this.user_data.profile_image_url;
+        this.state.dob=this.user_data.dob;
+        this.state.fundraiser_logo_url=this.user_data.fundraiser_logo_url;
 
     }
 
     constructor(props) {
         super(props);
+        this.user_data = JSON.parse(localStorage.getItem('Userdata'));
         this.state = {
             first_name: '',
             last_name: '',
@@ -45,8 +47,8 @@ class update extends Component {
             organization_name: '',
             profile_image_url: '',
             fundraiser_logo_url: '',
-            fundraiser_type: this.props.details.user_data.fundraiser_type,
-            email: this.props.details.user_data.email,
+            fundraiser_type: this.user_data.fundraiser_type,
+            email: this.user_data.email,
             modal1: false,
             modal2: false
         };
@@ -116,10 +118,12 @@ class update extends Component {
 
     update() {
         alert('A name was submitted: ' + JSON.stringify(this.state));
-        var url = 'fundraisers/' + this.props.details.user_data.id;
+        var url = 'fundraisers/' + this.user_data.id;
         putCall(url, this.state)
             .then((response) => {
                 console.log('response ::::::::: ', response);
+                this.userdata=response.data;
+                localStorage.setItem('Userdata',JSON.stringify( this.userdata))
             })
             .catch((error) => {
                 console.log('error ::::::: ', error);
@@ -142,6 +146,7 @@ class update extends Component {
     }
 
     render() {
+    
         return (
             <div className="container">
                 <div className="text-center"><h3>Update Profile</h3></div>
@@ -367,7 +372,7 @@ class update extends Component {
                     <ModalBody>
                         <Upload
                             imagetype="fundraiserProfile"
-                            userid={this.props.details.user_data.id}
+                            userid={this.user_data.id}
                         />
                     </ModalBody>
                     <ModalFooter>
@@ -391,7 +396,7 @@ class update extends Component {
                     <ModalBody>
                         <Upload
                             imagetype="fundraiserLogo"
-                            userid={this.props.details.user_data.id}
+                            userid={this.user_data.id}
                         />
                     </ModalBody>
                     <ModalFooter>

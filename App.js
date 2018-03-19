@@ -9,6 +9,25 @@ import createProfile from './pages/createprofilepage'
 // import 'bootstrap/dist/css/bootstrap.css';
 
 export default class App extends Component {
+    
+    // constructor(props){
+    //     super(props);
+    //     this.loggedIn = this.loggedIn.bind(this);
+    //     this.requireAuth = this.requireAuth.bind(this);
+    // }
+    // loggedIn() {
+    //    this.data=JSON.parse(localStorage.getItem('Userdata'));
+    //    if(this.data)
+    //     return true;
+    //     else return false;
+    //   }
+    // requireAuth(nextState, replace) {
+    //     if (!loggedIn()) {
+    //       replace({
+    //         pathname: '/login'
+    //       })
+    //     }
+    //   }
     render() {
         return (
             <MuiThemeProvider>
@@ -27,14 +46,17 @@ export default class App extends Component {
                               <Route
                                 path="/user"
                                 component={User}
+                                // onEnter={this.requireAuth}
                             />
                               <Route
                                 path="/view"
                                 component={viewProfile}
+                                // onEnter={this.requireAuth}
                             />
                                <Route
                                 path="/create"
                                 component={createProfile}
+                                // onEnter={this.requireAuth}
                             />
                        
                     </div>

@@ -70,6 +70,7 @@ export default class extends Component {
 
     }
     render() {
+       
         return (
             <Row>
                 <Col sm="3">

@@ -8,14 +8,15 @@ import {withRouter} from 'react-router-dom';
 class user extends Component {
     constructor(props) {
         super(props);
-    
+        
   } 
     render() {
         console.log('props:::::::::::::::',this.props);
+  
         return (
             <div>
                 <Navbar
-                     details={this.props.location.state.detail}
+                    //  details={this.props.location.state.detail}
                  />
                 <div className="exactCenter">
                     {/* Logged in <br/>
