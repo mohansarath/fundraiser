@@ -41,8 +41,13 @@ class login extends Component {
                     console.log('props :::::::::::::::login',this.props);
                     this.autho=response.headers.auth;
                     localStorage.setItem('Auth',this.autho);
-                    this.userdata=response.data.user_data;
-                    localStorage.setItem('Userdata',JSON.stringify( this.userdata))
+                    this.useremail=response.data.user_data.email;
+                    this.userid=response.data.user_data.id;
+              //      localStorage.setItem('Userdata',JSON.stringify( this.userdata))
+                    localStorage.setItem('Useremail',JSON.stringify( this.useremail))
+
+                    localStorage.setItem('Userid',JSON.stringify( this.userid))
+
 
 
                     this.props.history.push({

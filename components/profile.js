@@ -29,7 +29,7 @@ export default class extends Component {
             userdata: []
         }
         this.auth = localStorage.getItem('Auth');
-        this.user_data = JSON.parse(localStorage.getItem('Userdata'));
+        this.user_data = JSON.parse(localStorage.getItem('Userid'));
     }
 
 
@@ -46,7 +46,7 @@ export default class extends Component {
         // var headers = {
         //     'Auth': this.auth
         // }
-        var url = 'fundraisers/' + this.user_data.id;
+        var url = 'fundraisers/' + this.user_data;
         getCall(url)
             .then((response) => {
                 console.log('response ::::::::', response.data);

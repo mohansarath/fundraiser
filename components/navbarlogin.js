@@ -25,7 +25,7 @@ class nav extends Component {
         this.state = {
             isOpen: false
         };
-        this.user_data = JSON.parse(localStorage.getItem('Userdata'));
+        this.user_data = JSON.parse(localStorage.getItem('Useremail'));
     }
     toggle() {
         this.setState({
@@ -48,7 +48,7 @@ class nav extends Component {
                             <NavItem>
                                 <NavLink>
                                     {console.log('heyyyyy',this.props)}
-                                    {this.user_data.email}
+                                    {this.user_data}
                                 </NavLink>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>

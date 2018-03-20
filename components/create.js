@@ -5,32 +5,39 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import { withRouter } from 'react-router-dom';
-import Upload from './upload'
+import Upload from './upload';
+import { getCall } from '../services/api';
 
 class update extends Component {
 
     componentWillMount() {
-        // this.user_data = JSON.parse(localStorage.getItem('Userdata'));
-        this.state.first_name = this.user_data.first_name;
-        this.state.last_name = this.user_data.last_name;
-        this.state.street = this.user_data.street;
-        this.state.city = this.user_data.city;
-        this.state.country_code = this.user_data.country_code;
-        this.state.zip = this.user_data.zip;
-        this.state.phone = this.user_data.phone;
-        this.state.facebook_link = this.user_data.facebook_link;
-        this.state.twitter_link = this.user_data.twitter_link;
-        this.state.google_link = this.user_data.google_link;
-        this.state.organization_name = this.user_data.organization_name;
-        this.state.profile_image_url=this.user_data.profile_image_url;
-        this.state.dob=this.user_data.dob;
-        this.state.fundraiser_logo_url=this.user_data.fundraiser_logo_url;
 
+      
+        // this.user_data = JSON.parse(localStorage.getItem('Userdata'));
+        // this.getProfile();
+        // console.log('he hello  will mount');
+        // this.state.first_name = this.state.userdata.first_name;
+        // this.state.last_name = this.state.userdata.last_name;
+        // this.state.street = this.state.userdata.street;
+        // this.state.city = this.state.userdata.city;
+        // this.state.country_code = this.state.userdata.country_code;
+        // this.state.zip = this.state.userdata.zip;
+        // this.state.phone = this.state.userdata.phone;
+        // this.state.facebook_link = this.state.userdata.facebook_link;
+        // this.state.twitter_link = this.state.userdata.twitter_link;
+        // this.state.google_link = this.state.userdata.google_link;
+        // this.state.organization_name = this.state.userdata.organization_name;
+        // this.state.profile_image_url=this.state.userdata.profile_image_url;
+        // this.state.dob=this.state.userdata.dob;
+        // this.state.fundraiser_logo_url=this.state.userdata.fundraiser_logo_url;
+        // console.log('state::::::::::::::',this.state.userdata);
     }
+   
 
     constructor(props) {
         super(props);
-        this.user_data = JSON.parse(localStorage.getItem('Userdata'));
+        this.user_data = JSON.parse(localStorage.getItem('Userid'));
+        this.user_email = JSON.parse(localStorage.getItem('Useremail'));
         this.state = {
             first_name: '',
             last_name: '',
@@ -47,10 +54,11 @@ class update extends Component {
             organization_name: '',
             profile_image_url: '',
             fundraiser_logo_url: '',
-            fundraiser_type: this.user_data.fundraiser_type,
-            email: this.user_data.email,
+            fundraiser_type: 'O',
+            email: this.user_email,
             modal1: false,
-            modal2: false
+            modal2: false,
+            userdata:[]
         };
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -68,9 +76,55 @@ class update extends Component {
         this.update = this.update.bind(this);
         this.toggle1 = this.toggle1.bind(this);
         this.toggle2 = this.toggle2.bind(this);
+      
 
-
+        this.getProfile();
+       
     };
+
+    getProfile() {
+        // var headers = {
+        //     'Auth': this.auth
+        // }
+        var url = 'fundraisers/' + this.user_data;
+        getCall(url)
+            .then((response) => {
+                console.log('response ::will::::::', response.data);
+                this.setState({ userdata: response.data});
+                console.log('yooooooooooooooooo will', this.state.userdata);
+
+
+
+
+
+                console.log('he hello  will mount');
+                this.setState({ first_name: this.state.userdata.first_name});
+                this.setState({ last_name: this.state.userdata.last_name});
+                this.setState({ first_name: this.state.userdata.first_name});
+                this.setState({ street: this.state.userdata.street});
+                this.setState({ country_code: this.state.userdata.country_code});
+                this.setState({ city: this.state.userdata.city});
+                this.setState({ zip: this.state.userdata.zip});
+                this.setState({ phone: this.state.userdata.phone});
+                this.setState({ facebook_link: this.state.userdata.facebook_link});
+                this.setState({ twitter_link: this.state.userdata.twitter_link});
+                this.setState({ google_link: this.state.userdata.google_link});
+                this.setState({ organization_name: this.state.userdata.organization_name});
+                this.setState({ profile_image_url: this.state.userdata.profile_image_url});
+                this.setState({ dob: this.state.userdata.dob});
+                this.setState({ fundraiser_logo_url: this.state.userdata.fundraiser_logo_url});
+
+                // this.state.first_name = this.state.userdata.first_name;
+                console.log('state::::::::::::::',this.state.userdata);
+        
+            }
+            )
+            .catch((error) => {
+
+                console.log('error:::::::', error);
+            }
+            )
+    }
     handleFirstnameChange(event) {
         this.setState({ first_name: event.target.value });
     }
@@ -118,12 +172,12 @@ class update extends Component {
 
     update() {
         alert('A name was submitted: ' + JSON.stringify(this.state));
-        var url = 'fundraisers/' + this.user_data.id;
+        var url = 'fundraisers/' + this.user_data;
         putCall(url, this.state)
             .then((response) => {
                 console.log('response ::::::::: ', response);
-                this.userdata=response.data;
-                localStorage.setItem('Userdata',JSON.stringify( this.userdata))
+                this.userdata1=response.data;
+                localStorage.setItem('Userdata',JSON.stringify( this.userdata1))
             })
             .catch((error) => {
                 console.log('error ::::::: ', error);
@@ -372,7 +426,7 @@ class update extends Component {
                     <ModalBody>
                         <Upload
                             imagetype="fundraiserProfile"
-                            userid={this.user_data.id}
+                            userid={this.user_data}
                         />
                     </ModalBody>
                     <ModalFooter>
@@ -396,7 +450,7 @@ class update extends Component {
                     <ModalBody>
                         <Upload
                             imagetype="fundraiserLogo"
-                            userid={this.user_data.id}
+                            userid={this.user_data}
                         />
                     </ModalBody>
                     <ModalFooter>
