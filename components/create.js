@@ -7,12 +7,14 @@ import DatePicker from 'material-ui/DatePicker';
 import { withRouter } from 'react-router-dom';
 import Upload from './upload';
 import { getCall } from '../services/api';
+import validator from 'validator';
+
 
 class update extends Component {
 
     componentWillMount() {
 
-      
+
         // this.user_data = JSON.parse(localStorage.getItem('Userdata'));
         // this.getProfile();
         // console.log('he hello  will mount');
@@ -32,7 +34,7 @@ class update extends Component {
         // this.state.fundraiser_logo_url=this.state.userdata.fundraiser_logo_url;
         // console.log('state::::::::::::::',this.state.userdata);
     }
-   
+
 
     constructor(props) {
         super(props);
@@ -58,7 +60,9 @@ class update extends Component {
             email: this.user_email,
             modal1: false,
             modal2: false,
-            userdata:[]
+            userdata: [],
+            dobError: '',
+            phoneError: ''
         };
         this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -76,10 +80,10 @@ class update extends Component {
         this.update = this.update.bind(this);
         this.toggle1 = this.toggle1.bind(this);
         this.toggle2 = this.toggle2.bind(this);
-      
+
 
         this.getProfile();
-       
+
     };
 
     getProfile() {
@@ -90,33 +94,30 @@ class update extends Component {
         getCall(url)
             .then((response) => {
                 console.log('response ::will::::::', response.data);
-                this.setState({ userdata: response.data});
+                this.setState({ userdata: response.data });
                 console.log('yooooooooooooooooo will', this.state.userdata);
 
 
-
-
-
                 console.log('he hello  will mount');
-                this.setState({ first_name: this.state.userdata.first_name});
-                this.setState({ last_name: this.state.userdata.last_name});
-                this.setState({ first_name: this.state.userdata.first_name});
-                this.setState({ street: this.state.userdata.street});
-                this.setState({ country_code: this.state.userdata.country_code});
-                this.setState({ city: this.state.userdata.city});
-                this.setState({ zip: this.state.userdata.zip});
-                this.setState({ phone: this.state.userdata.phone});
-                this.setState({ facebook_link: this.state.userdata.facebook_link});
-                this.setState({ twitter_link: this.state.userdata.twitter_link});
-                this.setState({ google_link: this.state.userdata.google_link});
-                this.setState({ organization_name: this.state.userdata.organization_name});
-                this.setState({ profile_image_url: this.state.userdata.profile_image_url});
-                this.setState({ dob: this.state.userdata.dob});
-                this.setState({ fundraiser_logo_url: this.state.userdata.fundraiser_logo_url});
+                this.setState({ first_name: this.state.userdata.first_name });
+                this.setState({ last_name: this.state.userdata.last_name });
+                this.setState({ first_name: this.state.userdata.first_name });
+                this.setState({ street: this.state.userdata.street });
+                this.setState({ country_code: this.state.userdata.country_code });
+                this.setState({ city: this.state.userdata.city });
+                this.setState({ zip: this.state.userdata.zip });
+                this.setState({ phone: this.state.userdata.phone });
+                this.setState({ facebook_link: this.state.userdata.facebook_link });
+                this.setState({ twitter_link: this.state.userdata.twitter_link });
+                this.setState({ google_link: this.state.userdata.google_link });
+                this.setState({ organization_name: this.state.userdata.organization_name });
+                this.setState({ profile_image_url: this.state.userdata.profile_image_url });
+                this.setState({ dob: this.state.userdata.dob });
+                this.setState({ fundraiser_logo_url: this.state.userdata.fundraiser_logo_url });
 
                 // this.state.first_name = this.state.userdata.first_name;
-                console.log('state::::::::::::::',this.state.userdata);
-        
+                console.log('state::::::::::::::', this.state.userdata);
+
             }
             )
             .catch((error) => {
@@ -170,37 +171,68 @@ class update extends Component {
         this.setState({ organization_name: event.target.value });
     }
 
+    clearError() {
+        this.setState({
+            dobError: '',
+            dobError: ''
+        })
+    }
+    handleValidation() {
+        var errorflag = 0;
+        if (!validator.isNumeric(this.state.phone)) {
+            errorflag = 1;
+            this.setState({ phoneError: 'Mobile should be numeric' })
+
+        }
+        if (!validator.isLength(this.state.phone, { min: 10, max: 10 })) {
+            errorflag = 1;
+            this.setState({ phoneError: 'Length should be 10' })
+        }
+        if(validator.isAfter(this.state.dob)){
+            errorflag=1;
+            this.setState({dobError:'not valid date'})
+        }
+        if (errorflag == 1)
+            return false;
+        else if (errorflag == 0)
+            return true;
+    }
+
     update() {
-        alert('A name was submitted: ' + JSON.stringify(this.state));
-        var url = 'fundraisers/' + this.user_data;
-        putCall(url, this.state)
-            .then((response) => {
-                console.log('response ::::::::: ', response);
-                this.userdata1=response.data;
-                localStorage.setItem('Userdata',JSON.stringify( this.userdata1))
-            })
-            .catch((error) => {
-                console.log('error ::::::: ', error);
-            })
-        alert('ollo');
+
+        this.clearError();
+        if (this.handleValidation()) {
+            alert('A name was submitted: ' + JSON.stringify(this.state));
+            var url = 'fundraisers/' + this.user_data;
+            putCall(url, this.state)
+                .then((response) => {
+                    console.log('response ::::::::: ', response);
+                    this.userdata1 = response.data;
+                    localStorage.setItem('Userdata', JSON.stringify(this.userdata1))
+                })
+                .catch((error) => {
+                    console.log('error ::::::: ', error);
+                })
+            alert('ollo');
+        }
     }
     toggle1() {
         const profimage = localStorage.getItem('ProfileImage');
         this.setState({
             modal1: !this.state.modal1,
-            profile_image_url:profimage
+            profile_image_url: profimage
         });
     }
     toggle2() {
         const logo = localStorage.getItem('Logo');
         this.setState({
             modal2: !this.state.modal2,
-            fundraiser_logo_url:logo
+            fundraiser_logo_url: logo
         });
     }
 
     render() {
-    
+
         return (
             <div className="container">
                 <div className="text-center"><h3>Update Profile</h3></div>
@@ -294,7 +326,7 @@ class update extends Component {
                                                 onChange={this.handlePhoneChange}
                                                 fullWidth={true}
                                                 value={this.state.phone}
-
+                                                errorText={this.state.phoneError}
                                             />
                                         </FormGroup>
 
@@ -311,6 +343,7 @@ class update extends Component {
                                                 fullWidth={true}
                                                 openToYearSelection={true}
                                                 locale="en-US"
+                                                errorText={this.state.dobError}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -454,7 +487,7 @@ class update extends Component {
                         />
                     </ModalBody>
                     <ModalFooter>
-                    <RaisedButton
+                        <RaisedButton
                             type="button"
                             label="Done"
                             primary={true}

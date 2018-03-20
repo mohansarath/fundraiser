@@ -4,16 +4,20 @@ import { postCall } from '../services/api';
 import { loginfunc } from '../services/api';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import  { Redirect } from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import User from '../pages/user.js';
+import validator from 'validator';
+
 
 class login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            emailError: '',
+            passwordError: ''
         };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -27,41 +31,63 @@ class login extends Component {
     }
     handlePasswordChange(event) {
         this.setState({ password: event.target.value });
-    }    
-
+    }
+    clearError() {
+        this.setState({
+            emailError: '',
+            passwordError: ''
+        })
+    }
+    handleValidation() {
+        var errorflag = 0;
+        if (!validator.isEmail(this.state.email)) {
+            errorflag=1;
+            this.setState({ emailError: 'Email format not correct' })
+        }
+        if (!validator.isLength(this.state.password, { min: 6 })) {
+            errorflag = 1;
+            this.setState({ passwordError: 'Minimum characters is 6' });
+        }
+        if (errorflag == 1)
+            return false;
+        else if (errorflag == 0)
+            return true;
+    }
     signin() {
         // alert('A name was submitted: ' + this.props);
-        postCall('fundraisers/login',this.state)
-            .then((response) => {
-                console.log('response ::::::::: ', response);
-                if(response.status==200)
-                {
-        
-                    // alert(response.status);
-                    console.log('props :::::::::::::::login',this.props);
-                    this.autho=response.headers.auth;
-                    localStorage.setItem('Auth',this.autho);
-                    this.useremail=response.data.user_data.email;
-                    this.userid=response.data.user_data.id;
-              //      localStorage.setItem('Userdata',JSON.stringify( this.userdata))
-                    localStorage.setItem('Useremail',JSON.stringify( this.useremail))
+        this.clearError();
+        if (this.handleValidation()) {
+            postCall('fundraisers/login', this.state)
+                .then((response) => {
+                    console.log('response ::::::::: ', response);
+                    if (response.status == 200) {
 
-                    localStorage.setItem('Userid',JSON.stringify( this.userid))
+                        // alert(response.status);
+                        console.log('props :::::::::::::::login', this.props);
+                        this.autho = response.headers.auth;
+                        localStorage.setItem('Auth', this.autho);
+                        this.useremail = response.data.user_data.email;
+                        this.userid = response.data.user_data.id;
+                        //      localStorage.setItem('Userdata',JSON.stringify( this.userdata))
+                        localStorage.setItem('Useremail', JSON.stringify(this.useremail))
+
+                        localStorage.setItem('Userid', JSON.stringify(this.userid))
 
 
 
-                    this.props.history.push({
-                        pathname: '/user'
-                        // state: { detail: response.data }
-                      })
-                    // const { history } = this.props;
-                    // history.push("/");   
-                }    //   window.location="http://localhost:8080/user";
-            })
-            .catch((error) => {
-                console.log('error ::::::: ', error);
-            })
-        
+                        this.props.history.push({
+                            pathname: '/user'
+                            // state: { detail: response.data }
+                        })
+                        // const { history } = this.props;
+                        // history.push("/");   
+                    }    //   window.location="http://localhost:8080/user";
+                })
+                .catch((error) => {
+                    console.log('error ::::::: ', error);
+                })
+        }
+
     }
     render() {
         return (
@@ -78,6 +104,7 @@ class login extends Component {
                                         hintText="Email"
                                         floatingLabelText="email"
                                         onChange={this.handleEmailChange}
+                                        errorText={this.state.emailError}
                                     />
                                     {/* <Label>Email</Label>
                                 <Input placeholder="email" type="email" id="email" name="email" /> */}
@@ -88,6 +115,7 @@ class login extends Component {
                                         floatingLabelText="Password"
                                         type="password"
                                         onChange={this.handlePasswordChange}
+                                        errorText={this.state.passwordError}
 
                                     />
                                     {/* <Label>password</Label>
@@ -109,4 +137,4 @@ class login extends Component {
         )
     }
 }
-export default withRouter( login);
+export default withRouter(login);

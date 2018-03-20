@@ -3,6 +3,7 @@ import { InputGroup, InputGroupAddon, InputGroupText, Input, Label, FormGroup, B
 import { postCall } from '../services/api';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import validator from 'validator';
 
 export default class extends Component {
     constructor(props) {
@@ -13,7 +14,13 @@ export default class extends Component {
             confirm_password: '',
             fundraiser_type: '',
             phone: '',
-            organization_name: ''
+            organization_name: '',
+            emailError: '',
+            passwordError: '',
+            confirm_passwordError: '',
+            fundraiser_typeError: '',
+            phoneError: '',
+            organization_nameError: ''
         };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -46,18 +53,74 @@ export default class extends Component {
         this.setState({ organization_name: event.target.value });
     }
 
+    handleValidation() {
+        var errorflag = 0;
+        if (!validator.isEmail(this.state.email)) {
+            errorflag = 1;
+            this.setState({ emailError: 'Email not in valid form' });
+        }
+        if(!validator.isLength(this.state.password,{min:6}))
+        {
+            errorflag = 1;
+            this.setState({ passwordError: 'Minimum characters is 6' });
+        }
+        if(!validator.equals(this.state.password,this.state.confirm_password))
+        {
+            errorflag=1;
+            this.setState({confirm_passwordError:'Passwords not matching'})
+        }
+        if(!validator.isNumeric(this.state.phone))
+        {
+            errorflag=1;
+            this.setState({phoneError:'Mobile should be numeric'})
+           
+        }
+        if(!validator.isLength(this.state.phone,{min:10,max:10}))
+        {
+            errorflag=1;
+            this.setState({phoneError:'Length should be 10'})
+        }
+        if(!validator.equals(this.state.fundraiser_type,'O') ) 
+        {
+            errorflag=1;
+            this.setState({fundraiser_typeError:'Should be  O'})
+        }
+        if(validator.isEmpty(this.state.organization_name))
+        {
+            errorflag=1;
+            this.setState({organization_nameError:'Should not be empty'})
+        }
+        if (errorflag == 1)
+            return false;
+        else if (errorflag == 0)
+            return true;
 
+    }
+    clearError(){
+        this.setState({
+            organization_nameError:'',
+            emailError:'',
+            passwordError:'',
+            confirm_passwordError:'',
+            phoneError:'',
+            fundraiser_typeError:'',
+            organization_nameError:''
+        })
+    }
     signup() {
-        alert('A name was submitted: ' + this.state);
-        postCall('fundraisers/',this.state)
-            .then((response) => {
-                console.log('response ::::::::: ', response.data);
-                this.props.history.push('/login');
-            })
-            .catch((error) => {
-                console.log('error ::::::: ', error);
-            })
-        alert('ollo');
+        this.clearError();
+        if (this.handleValidation()) {
+            alert('A name was submitted: ' + this.state);
+            postCall('fundraisers/', this.state)
+                .then((response) => {
+                    console.log('response ::::::::: ', response.data);
+                    this.props.history.push('/login');
+                })
+                .catch((error) => {
+                    console.log('error ::::::: ', error);
+                })
+            alert('ollo');
+        }
 
     }
     render() {
@@ -74,7 +137,9 @@ export default class extends Component {
                                         floatingLabelText="Email"
                                         onChange={this.handleEmailChange}
                                         fullWidth={true}
+                                        errorText={this.state.emailError}
                                     />
+                              
                                     {/* <Label>Email</Label>
                                     <Input placeholder="email" type="email" id="email" name="email" onChange={this.handleEmailChange} /> */}
                                 </FormGroup>
@@ -87,6 +152,7 @@ export default class extends Component {
                                                 type="password"
                                                 onChange={this.handlePasswordChange}
                                                 fullWidth={true}
+                                                errorText={this.state.passwordError}
                                             />
                                             {/* <Label>password</Label>
                                     <Input placeholder="password" type="password" id="password" name="password" onChange={this.handlePasswordChange} /> */}
@@ -101,6 +167,7 @@ export default class extends Component {
                                                 type="password"
                                                 onChange={this.handleConfirmPasswordChange}
                                                 fullWidth={true}
+                                                errorText={this.state.confirm_passwordError}
                                             />
                                             {/* <Label>confirm password</Label>
                                     <Input placeholder="confirm password" type="password" id="confirm_password" name="confirm_password" onChange={this.handleConfirmPasswordChange} /> */}
@@ -113,6 +180,7 @@ export default class extends Component {
                                         floatingLabelText="phone"
                                         onChange={this.handlePhoneChange}
                                         fullWidth={true}
+                                        errorText={this.state.phoneError}
                                     />
                                     {/* <Label>fundraiser_type</Label>
                                     <Input placeholder="fundraiser_type" id="fundraiser_type" name="fundraiser_type" onChange={this.handleFtypeChange} /> */}
@@ -120,24 +188,26 @@ export default class extends Component {
                                 <Row>
                                     <Col xs="6">
                                         <FormGroup>
-                                        <TextField
-                                        hintText="O / I"
-                                        floatingLabelText="Fundraiser Type"
-                                        onChange={this.handleFtypeChange}
-                                        fullWidth={true}
-                                    />
+                                            <TextField
+                                                hintText="O / I"
+                                                floatingLabelText="Fundraiser Type"
+                                                onChange={this.handleFtypeChange}
+                                                fullWidth={true}
+                                                errorText={this.state.fundraiser_typeError}
+                                            />
                                             {/* <Label>phone</Label>
                                     <Input placeholder="phone" type="number" id="phone" name="phone" onChange={this.handlePhoneChange} /> */}
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup>
-                                        <TextField
-                                        hintText="organization name"
-                                        floatingLabelText="Organization name"
-                                        onChange={this.handlePhoneChange}
-                                        fullWidth={true}
-                                    />
+                                            <TextField
+                                                hintText="organization name"
+                                                floatingLabelText="Organization name"
+                                                onChange={this.handleOnameChange}
+                                                fullWidth={true}
+                                                errorText={this.state.organization_nameError}
+                                            />
                                             {/* <Label>organization_name</Label>
                                     <Input placeholder="organization_name" id="organization_name" name="organization_name" onChange={this.handleOnameChange} /> */}
                                         </FormGroup>
@@ -151,7 +221,7 @@ export default class extends Component {
                                 />
                                 {/* <button type="button" onClick={this.signup}>Sign uP</button> */}
                             </Form>
-                    
+
                         </div>
                     </Col>
                     <Col xs="3"></Col>
