@@ -25,7 +25,7 @@
     "reactstrap": "^5.0.0-beta.2",
     "validator": "^9.4.1",
     "webpack": "^4.1.1",
-    "webpack-dev-server": "^3.1.0"
+    "webpack-dev-server": "^3.11.3"
   },
   "devDependencies": {
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
